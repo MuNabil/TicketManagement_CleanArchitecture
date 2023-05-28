@@ -4,6 +4,7 @@ using Core.Application.Features.Events.Commands.CreateEvent;
 using Core.Application.Features.Events.Commands.DeleteEvent;
 using Core.Application.Features.Events.Commands.UpdateEvent;
 using Core.Application.Features.Events.Queries.GetEventDetail;
+using Core.Application.Features.Events.Queries.GetEventsExport;
 using Core.Application.Features.Events.Queries.GetEventsList;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -65,13 +66,13 @@ namespace API.API.Controllers
             return NoContent();
         }
 
-        //[HttpGet("export", Name = "ExportEvents")]
+        [HttpGet("export", Name = "ExportEvents")]
         //[FileResultContentType("text/csv")]
-        //public async Task<FileResult> ExportEvents()
-        //{
-        //    var fileDto = await _mediator.Send(new GetEventsExportQuery());
+        public async Task<FileResult> ExportEvents()
+        {
+            var fileDto = await _mediator.Send(new GetEventsExportQuery());
 
-        //    return File(fileDto.Data, fileDto.ContentType, fileDto.EventExportFileName);
-        //}
+            return File(fileDto.Data, fileDto.ContentType, fileDto.EventExportFileName);
+        }
     }
 }
